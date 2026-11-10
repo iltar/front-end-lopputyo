@@ -3,6 +3,7 @@ import Container from "@mui/material/Container"
 import CssBaseline from "@mui/material/CssBaseline"
 import Toolbar from "@mui/material/Toolbar"
 import Typography from "@mui/material/Typography"
+import CustomerList from "./components/CustomerList"
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
           <Typography variant="h5">Personal Trainer Scheduling System</Typography>
         </Toolbar>
       </AppBar>
+      <CustomerList />
       <CssBaseline />
     </Container>
   )
