@@ -4,6 +4,7 @@ import CssBaseline from "@mui/material/CssBaseline"
 import Toolbar from "@mui/material/Toolbar"
 import Typography from "@mui/material/Typography"
 import CustomerList from "./components/CustomerList"
+import TrainingList from "./components/TrainingList"
 
 function App() {
 
@@ -14,7 +15,7 @@ function App() {
           <Typography variant="h5">Personal Trainer Scheduling System</Typography>
         </Toolbar>
       </AppBar>
-      <CustomerList />
+      <TrainingList />
       <CssBaseline />
     </Container>
   )
