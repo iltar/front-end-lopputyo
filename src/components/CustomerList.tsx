@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Customer } from "../types";
 import { DataGrid } from "@mui/x-data-grid";
 import type { GridColDef } from "@mui/x-data-grid";
+import { getCustomers } from "../customerapi";
 
 export default function CustomerList() {
   const [customers, setCustomers] = useState<Customer[]>([]);
@@ -16,6 +17,16 @@ export default function CustomerList() {
     { field: "city", headerName: "City", flex: 2 },
     { field: "_links.customer.href", headerName: "", flex: 2, sortable: false, hideable: false }
   ];
+
+  const fetchCustomers = () => {
+    getCustomers()
+      .then((data) => setCustomers(data._embedded.customers))
+      .catch((err) => console.error(err));
+  };
+
+  useEffect(() => {
+    fetchCustomers();
+  }, []);
 
   return (
     <>
