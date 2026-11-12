@@ -1,29 +1,44 @@
 import type { Training } from "../types";
 import { DataGrid } from "@mui/x-data-grid";
-import type { GridColDef } from "@mui/x-data-grid";
+import type { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import { getTrainings } from "../trainingapi";
+import dayjs from "dayjs";
 
 export default function CustomerList() {
   const [trainings, setTrainings] = useState<Training[]>([]);
 
   const columns: GridColDef[] = [
-    { field: "date", headerName: "Date", flex: 3 },
+    {
+      field: "date",
+      headerName: "Date",
+      flex: 3,
+      renderCell: (params: GridRenderCellParams) => (
+        <>{dayjs(params.row.date).format("D.M.YYYY hh:mm")}</>
+      )
+    },
     { field: "duration", headerName: "Duration", flex: 1 },
     { field: "activity", headerName: "Activity", flex: 2 },
-    { field: "_links.customer.href", headerName: "Customer", flex: 3 },
     {
-      field: "_links.training.href",
+      field: "customer",
+      headerName: "Customer",
+      flex: 2,
+      renderCell: (params: GridRenderCellParams) =>
+        params.row.customer.firstname + " " + params.row.customer.lastname
+    },
+    {
+      field: "id",
       headerName: "",
       flex: 2,
       sortable: false,
-      hideable: false
+      hideable: false,
+      renderCell: (params: GridRenderCellParams) => <></>
     }
   ];
 
   const fetchTrainings = () => {
     getTrainings()
-      .then((data) => setTrainings(data._embedded.trainings))
+      .then((data) => setTrainings(data))
       .catch((err) => console.error(err));
   };
 
@@ -37,7 +52,7 @@ export default function CustomerList() {
         <DataGrid
           rows={trainings}
           columns={columns}
-          getRowId={(row) => row._links.self.href}
+          getRowId={(row) => row.id}
         />
       </div>
     </>

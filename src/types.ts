@@ -1,11 +1,11 @@
 export type Customer = {
   firstname: string;
   lastname: string;
-  streetaddress?: string;
-  postcode?: string;
-  city?: string;
-  email?: string;
-  phone?: string;
+  streetaddress: string;
+  postcode: string;
+  city: string;
+  email: string;
+  phone: string;
   _links?: {
     self: {
       href: string;
@@ -17,13 +17,16 @@ export type Customer = {
       href: string;
     };
   };
+  id?: number;
 };
 
 export type Training = {
   date: string;
   duration: number;
   activity: string;
-  _links: {
+  id?: number;
+  customer?: Customer;
+  _links?: {
     self: {
       href: string;
     };
@@ -33,5 +36,5 @@ export type Training = {
     customer: {
       href: string;
     };
-  }
-}
+  };
+};
